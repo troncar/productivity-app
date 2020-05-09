@@ -1,0 +1,19 @@
+.task {
+    .card-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    p {
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+    label{
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-right: 5px;
+        margin-bottom: 0px;
+    }
+
+}
