@@ -7,8 +7,23 @@ import '../styles/TasksList.scss';
 
 const TasksList = (props) => {
 
+    const convertTime = (time) => {
+        if( time === 0 || time < 60) {
+            return {seconds: 0, minutes:time, hours: 0};
+        }
+        else {
+            const minutes =  time - 60 ;
+            if (minutes === 60) {
+                return {seconds: 0, minutes:0, hours: 2};
+            }
+            return {seconds: 0, minutes: minutes, hours: 1};
+        }
+    }
+
     const buildTasksList =  (tasks) => {
+
         if (!!tasks.length) {
+
             return (
 
             <div className="tasks-list__block">
@@ -16,9 +31,12 @@ const TasksList = (props) => {
                 {tasks.map((task, index) => (
                     <Task
                      key={`${task.time}-${index}`}
+                     id={task._id}
                      nameTask={task.name} 
                      timeTask={task.time}
+                     timeTimer={convertTime(task.time)}
                      eventKey={index}
+                     initTimer={props.initTimer}
                     />
                 ))}
                 </Accordion>
@@ -29,7 +47,7 @@ const TasksList = (props) => {
             return (
             <div> 
                 <h4>You dont have any tasks. Add one in the form below </h4>
-                <AddTask setTasks={props.setTasks}></AddTask>
+                <AddTask tasks={props.tasks} setTasks={props.setTasks}></AddTask>
             </div>)
         }
     }

@@ -3,30 +3,37 @@ import {Button} from 'react-bootstrap'
 
 import '../styles/Timer.scss';
 
-const Timer = () => {
-
+const Timer = (props) => {
     const [start, setStart] =  useState(false);
-    const [counter, setCounter] = useState({seconds: 0, minutes:0, hours: 0})
     const [formatCounter, setFormatCounter] = useState('00:00:00');
-
+    let {seconds, minutes,hours} = {...props.counter};
     useEffect ( () => {
-        if(start){
+        if(props.start){
             const timer =  setInterval(() => {
-                let {seconds,minutes,hours} = {...counter};
                 
-                if(counter.seconds > 0 && (counter.seconds % 60) === 0) {
-                    minutes = minutes + 1;
-                    seconds = 0;
-                }
-                else {
-                    seconds = seconds + 1;
-                }
-                if(counter.minutes > 0 && (counter.minutes % 60) === 0) {
-                    minutes = 0;
-                    hours = hours + 1;
 
+                // Restar
+
+                if (seconds <= 60 && seconds != 0){
+                    seconds = seconds - 1;
+                } else if(seconds === 0 && minutes > 0 && minutes <= 60 ){
+                    minutes = minutes - 1;
+                    seconds = 59;
                 }
-                setCounter((prev) => (
+                
+                // if(props.counter.seconds > 0 && (props.counter.seconds % 60) === 0) {
+                //     minutes = minutes - 1;
+                //     seconds = 0;
+                // }
+                // else {
+                //     seconds = seconds - 1;
+                // }
+                // if(props.counter.minutes > 0 && (props.counter.minutes % 60) === 0) {
+                //     minutes = 0;
+                //     hours = hours - 1;
+
+                // }
+                props.setCounter((prev) => (
                         {...prev, seconds:seconds, minutes:minutes,hours:hours}
                     )
                 );
@@ -34,9 +41,12 @@ const Timer = () => {
             },1000)
             return () => clearInterval(timer);
         }
+        else {
+            setFormatCounter(setTimerFormat());
+        }
 
 
-    },[start,counter.seconds]) ;
+    },[props.start,seconds, props.counter]) ;
 
     const handlerStart = () => {
         setStart(!start);
@@ -47,26 +57,26 @@ const Timer = () => {
         let minutesCounter = '00';
         let hoursCounter = '00';
 
-        if( counter.seconds < 10) {
-            secondsCounter =  `0${counter.seconds}`
+        if( props.counter.seconds < 10) {
+            secondsCounter =  `0${props.counter.seconds}`
 
         }
         else {
-            secondsCounter =  counter.seconds;
+            secondsCounter =  props.counter.seconds;
         }
 
-        if(counter.minutes < 10){
-            minutesCounter = `0${counter.minutes}`;
+        if(props.counter.minutes < 10){
+            minutesCounter = `0${props.counter.minutes}`;
         }
         else  {
-            minutesCounter = counter.minutes;
+            minutesCounter = props.counter.minutes;
         }
 
-        if(counter.hours < 10){
-            hoursCounter = `0${counter.hours}`;
+        if(props.counter.hours < 10){
+            hoursCounter = `0${props.counter.hours}`;
         }
         else {
-            hoursCounter = counter.hours;
+            hoursCounter = props.counter.hours;
         }
 
         const formatTime = `${hoursCounter}:${minutesCounter}:${secondsCounter}`;

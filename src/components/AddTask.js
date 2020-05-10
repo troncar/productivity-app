@@ -1,5 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {Form, Button } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
+
 
 import '../styles/AddTask.scss';
 
@@ -14,9 +16,10 @@ const AddTask = (props) => {
             evt.preventDefault();
             evt.stopPropagation();
         } 
-        props.setTasks( prevState => (
-            [...prevState,{ name:inputName.current.value, time:inputTime.current.value }])
-            );
+        props.setTasks(  prevState => (
+           [...prevState,{ name:inputName.current.value, time:inputTime.current.value , _id:uuidv4()}])
+        );
+
         setValidated(true);
         evt.preventDefault();
     }
