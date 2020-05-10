@@ -40,6 +40,11 @@ const Dashboard = () => {
         setFormVisible(!graphVisble);
     }
 
+    const removeTasks =  (id, tasks) => {
+        const tasksValid =  tasks.filter( task => task._id !== id);
+        setTasks(tasksValid);
+    }
+
     const updateTasks = (id, tasks, updateTask) => {
         if(tasks && id){
             const task = tasks.filter((task) => {
@@ -51,6 +56,7 @@ const Dashboard = () => {
             setTasks( prevState => ([...prevState]));
         }
     }
+
     const isEmpty = (obj) => {
         for(var key in obj) {
             if(obj.hasOwnProperty(key))
@@ -92,7 +98,7 @@ const Dashboard = () => {
                 ):(
                     <div className="dashboard">
                         <Timer counter={counter} setCounter={setCounter} start={start}/>
-                        <TasksList tasks={tasks} setTasks={setTasks} initTimer={initTimer}></TasksList>
+                        <TasksList tasks={tasks} setTasks={setTasks} initTimer={initTimer} updateTasks={updateTasks} removeTasks={removeTasks}></TasksList>
                     </div>
                 )}
             </div>

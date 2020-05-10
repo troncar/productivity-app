@@ -27,6 +27,9 @@ const TasksList = (props) => {
             return (
 
             <div className="tasks-list__block">
+                <div className="tasks-list__filter">
+                    <form><input/></form>
+                </div>
                 <Accordion className="tasks-list__block">
                 {tasks.map((task, index) => (
                     <Task
@@ -34,6 +37,8 @@ const TasksList = (props) => {
                      id={task._id}
                      tasks={props.tasks}
                      setTasks={props.setTasks}
+                     updateTasks={props.updateTasks}
+                     removeTasks={props.removeTasks}
                      nameTask={task.name} 
                      timeTask={task.time}
                      eventKey={index}

@@ -29,9 +29,19 @@ const AddTask = (props) => {
             evt.preventDefault();
             evt.stopPropagation();
         } 
-        props.setTasks(  prevState => (
-           [...prevState,{ name:inputName.current.value, time:convertTime(inputTime.current.value) , _id:uuidv4()}])
-        );
+        if(!props.id){
+            props.setTasks(  prevState => (
+                [...prevState,{ name:inputName.current.value, time:convertTime(inputTime.current.value) , _id:uuidv4()}])
+             );
+     
+        }
+        else {
+            const taskUpdate = props.tasks.filter( task => task._id === props.id);
+            taskUpdate[0].time = inputName.current.value;
+            taskUpdate[0].time = convertTime(inputTime.current.value);
+            props.updateTasks(props.id, props.tasks, taskUpdate);
+            console.log(props.id);
+        }
 
         setValidated(true);
         evt.preventDefault();

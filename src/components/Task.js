@@ -14,16 +14,17 @@ const Task =  (props) => {
                 </p>
                 <p className="task_time">
                     <label>Time:</label>
-                    {props.timeTask.minutes}
+                    {`${props.timeTask.hours}:${props.timeTask.minutes}:${props.timeTask.seconds}`}
                 </p>
                 <Button variant="success" onClick={() => {props.initTimer(props.timeTask , props.id )}}>Run!</Button>{' '}
                 <Accordion.Toggle as={Button} variant="link" eventKey={`${props.eventKey}`}>
                     Edit
                 </Accordion.Toggle>
+                <Button variant="danger" onClick={() => {props.removeTasks(props.id , props.tasks)}}>Delete</Button>{' '}
             </Card.Header>
             <Accordion.Collapse eventKey={`${props.eventKey}`}>
                 <Card.Body>
-                    <UpdateTask tasks={props.tasks} setTasks={props.setTasks} nameTask={props.nameTask} timeTask={props.timeTask} id={props.id}/>
+                    <UpdateTask tasks={props.tasks} updateTasks={props.updateTasks} setTasks={props.setTasks} nameTask={props.nameTask} timeTask={props.timeTask} id={props.id}/>
                 </Card.Body>
             </Accordion.Collapse>
         </Card>
