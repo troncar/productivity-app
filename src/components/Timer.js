@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import {Button} from 'react-bootstrap'
+
 import '../styles/Timer.scss';
 
 const Timer = (props) => {
@@ -29,6 +31,9 @@ const Timer = (props) => {
 
     },[props.start,seconds, props.counter]) ;
 
+    const handlerStart = () => {
+        setStart(!start);
+    }
 
     const setTimerFormat = () => {
         let secondsCounter = '00';
@@ -64,6 +69,7 @@ const Timer = (props) => {
     return (
         <div className="timer">
             <div className='timer__counter'>{formatCounter}</div>
+            <Button onClick={handlerStart} className="btn--timer " variant="outline-success">&#10148;</Button>{' '}
         </div>
     )
 }
