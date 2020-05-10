@@ -34,7 +34,6 @@ const TasksList = (props) => {
                      id={task._id}
                      nameTask={task.name} 
                      timeTask={task.time}
-                     timeTimer={convertTime(task.time)}
                      eventKey={index}
                      initTimer={props.initTimer}
                     />

@@ -9,6 +9,7 @@ const Timer = (props) => {
     let {seconds, minutes,hours} = {...props.counter};
     useEffect ( () => {
         if(props.start){
+            console.log(props.counter);
             const timer =  setInterval(() => {
                 
 

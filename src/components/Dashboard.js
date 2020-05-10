@@ -14,7 +14,7 @@ const Dashboard = () => {
     const [formVisible, setFormVisible] = useState(false);
     const [graphVisble, setGraphVisible] = useState(false);
     const [start, setStart] = useState(false);
-    const [timeCounter, setTimeCounter] = useState(0);
+    const [timeCounter, setTimeCounter] = useState({});
     const [currentTask, setCurrentTask] = useState('');
     const [counter, setCounter] = useState({seconds: 0, minutes:0, hours: 0})
 
@@ -24,8 +24,8 @@ const Dashboard = () => {
 
     useEffect(() => { 
         setCounter(counter);
-        setTimeCounter(counter.minutes);
-        if(!!currentTask){
+        setTimeCounter(counter);
+        if(!!currentTask && !!timeCounter){
             const taskUpdate = tasks.filter( task => task._id === currentTask);
             taskUpdate[0].time = timeCounter;
             updateTasks(currentTask, tasks, taskUpdate)   
@@ -44,7 +44,6 @@ const Dashboard = () => {
         if(tasks && id){
             const task = tasks.filter((task) => {
                 if(task._id === id) {
-                    console.log(task)
                     task.name =  updateTask[0].name;
                     task.time = updateTask[0].time;
                 }
@@ -52,15 +51,22 @@ const Dashboard = () => {
             setTasks( prevState => ([...prevState]));
         }
     }
+    const isEmpty = (obj) => {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
 
     const initTimer = (time, id ) => {
         let {seconds,minutes,hours} = {...time};
         setCurrentTask(id);
-        if(timeCounter !== 0) {
+        if(!isEmpty(timeCounter)) {
             setTimeCounter(timeCounter);
         }
         else {
-            setTimeCounter(minutes);
+            setTimeCounter(time);
         }
         setCounter({seconds: seconds, minutes:minutes, hours: hours})
         setStart(!start);

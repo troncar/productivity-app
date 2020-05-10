@@ -10,6 +10,19 @@ const AddTask = (props) => {
     const inputTime = useRef(null);
     const [validated, setValidated] = useState(false);
 
+    const convertTime = (time) => {
+        if( time === 0 || time < 60) {
+            return {seconds: 0, minutes:time, hours: 0};
+        }
+        else {
+            const minutes =  time - 60 ;
+            if (minutes === 60) {
+                return {seconds: 0, minutes:0, hours: 2};
+            }
+            return {seconds: 0, minutes: minutes, hours: 1};
+        }
+    }
+
     const handleSubmit = (evt) => {
         const form = evt.currentTarget;
         if (form.checkValidity() === false) {
@@ -17,7 +30,7 @@ const AddTask = (props) => {
             evt.stopPropagation();
         } 
         props.setTasks(  prevState => (
-           [...prevState,{ name:inputName.current.value, time:inputTime.current.value , _id:uuidv4()}])
+           [...prevState,{ name:inputName.current.value, time:convertTime(inputTime.current.value) , _id:uuidv4()}])
         );
 
         setValidated(true);

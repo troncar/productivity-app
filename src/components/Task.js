@@ -12,9 +12,9 @@ const Task =  (props) => {
                 </p>
                 <p className="task_time">
                     <label>Time:</label>
-                    {props.timeTask}
+                    {props.timeTask.minutes}
                 </p>
-                <Button variant="success" onClick={() => {props.initTimer(props.timeTimer , props.id )}}>Run!</Button>{' '}
+                <Button variant="success" onClick={() => {props.initTimer(props.timeTask , props.id )}}>Run!</Button>{' '}
                 <Accordion.Toggle as={Button} variant="link" eventKey={`${props.eventKey}`}>
                     Edit
                 </Accordion.Toggle>
