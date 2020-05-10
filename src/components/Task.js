@@ -1,6 +1,8 @@
 import React from 'react'
 import {Accordion,Card, Button} from 'react-bootstrap';
+import UpdateTask from './AddTask';
 import '../styles/Task.scss';
+
 
 const Task =  (props) => {
     return (
@@ -20,7 +22,9 @@ const Task =  (props) => {
                 </Accordion.Toggle>
             </Card.Header>
             <Accordion.Collapse eventKey={`${props.eventKey}`}>
-                <Card.Body>Hello! I'm the body</Card.Body>
+                <Card.Body>
+                    <UpdateTask tasks={props.tasks} setTasks={props.setTasks} nameTask={props.nameTask} timeTask={props.timeTask} id={props.id}/>
+                </Card.Body>
             </Accordion.Collapse>
         </Card>
 

@@ -41,14 +41,14 @@ const AddTask = (props) => {
         <Form className="add-task" noValidate validated={validated} onSubmit={handleSubmit}> 
             <Form.Group controlId="formAddName">
                 <Form.Label>Name Task</Form.Label>
-                <Form.Control ref={inputName} required type="text" placeholder="Enter name tasks"/>
+                <Form.Control ref={inputName} required type="text" placeholder="Enter name tasks" defaultValue={props.nameTask ? props.nameTask : ''}/>
                 <Form.Control.Feedback type="invalid">
                     This field is required
                 </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formAddTime">
                 <Form.Label>Time</Form.Label>
-                <Form.Control ref={inputTime} required min="1" max="120" type="number" placeholder="20" />
+                <Form.Control ref={inputTime} required min="1" max="120" type="number" placeholder="23" defaultValue={props.timeTask ? props.timeTask.minutes : ''}/>
                 <Form.Text className="text-muted">
                     The max time are 120 minutes that equal to 2 hours.
                 </Form.Text>

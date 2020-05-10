@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Button} from 'react-bootstrap'
-
 import '../styles/Timer.scss';
 
 const Timer = (props) => {
@@ -9,31 +7,13 @@ const Timer = (props) => {
     let {seconds, minutes,hours} = {...props.counter};
     useEffect ( () => {
         if(props.start){
-            console.log(props.counter);
             const timer =  setInterval(() => {
-                
-
-                // Restar
-
                 if (seconds <= 60 && seconds != 0){
                     seconds = seconds - 1;
                 } else if(seconds === 0 && minutes > 0 && minutes <= 60 ){
                     minutes = minutes - 1;
                     seconds = 59;
                 }
-                
-                // if(props.counter.seconds > 0 && (props.counter.seconds % 60) === 0) {
-                //     minutes = minutes - 1;
-                //     seconds = 0;
-                // }
-                // else {
-                //     seconds = seconds - 1;
-                // }
-                // if(props.counter.minutes > 0 && (props.counter.minutes % 60) === 0) {
-                //     minutes = 0;
-                //     hours = hours - 1;
-
-                // }
                 props.setCounter((prev) => (
                         {...prev, seconds:seconds, minutes:minutes,hours:hours}
                     )
@@ -49,9 +29,6 @@ const Timer = (props) => {
 
     },[props.start,seconds, props.counter]) ;
 
-    const handlerStart = () => {
-        setStart(!start);
-    }
 
     const setTimerFormat = () => {
         let secondsCounter = '00';
@@ -86,7 +63,6 @@ const Timer = (props) => {
 
     return (
         <div className="timer">
-            <Button onClick={handlerStart} className="btn--timer " variant="outline-success">&#10148;</Button>{' '}
             <div className='timer__counter'>{formatCounter}</div>
         </div>
     )

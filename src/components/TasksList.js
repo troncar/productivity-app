@@ -32,6 +32,8 @@ const TasksList = (props) => {
                     <Task
                      key={`${task.time}-${index}`}
                      id={task._id}
+                     tasks={props.tasks}
+                     setTasks={props.setTasks}
                      nameTask={task.name} 
                      timeTask={task.time}
                      eventKey={index}
