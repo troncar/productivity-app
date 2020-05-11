@@ -31,7 +31,7 @@ const AddTask = (props) => {
         } 
         if(!props.id){
             props.setTasks(  prevState => (
-                [...prevState,{ name:inputName.current.value, time:convertTime(inputTime.current.value) , _id:uuidv4()}])
+                [...prevState,{ name:inputName.current.value, time:convertTime(inputTime.current.value) , _id:uuidv4(), originalTime:convertTime(inputTime.current.value) }])
              );
      
         }
@@ -40,7 +40,6 @@ const AddTask = (props) => {
             taskUpdate[0].time = inputName.current.value;
             taskUpdate[0].time = convertTime(inputTime.current.value);
             props.updateTasks(props.id, props.tasks, taskUpdate);
-            console.log(props.id);
         }
 
         setValidated(true);

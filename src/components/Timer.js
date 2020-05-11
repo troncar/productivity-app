@@ -39,7 +39,8 @@ const Timer = (props) => {
         let secondsCounter = '00';
         let minutesCounter = '00';
         let hoursCounter = '00';
-
+        
+        // @ToDo Improve this part.
         if( props.counter.seconds < 10) {
             secondsCounter =  `0${props.counter.seconds}`
 

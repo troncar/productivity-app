@@ -1,13 +1,15 @@
 .timer {
     display: flex;
-    width: 40%;
+    width: 30%;
+    padding: 15px;
     align-items: center;
     flex-direction: column;
     margin-top: 120px;
 
     &__counter {
-        font-size: 5.5rem;
+        font-size: 4rem;
         width: 100%;
+        padding: 10px;
         height: 80px;
         margin-bottom: 90px;
         display: flex;

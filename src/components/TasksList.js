@@ -1,4 +1,4 @@
-import React , {useRef, useState} from 'react';
+import React , {useRef, useState, useEffect} from 'react';
 import Task from './Task';
 import {Accordion, Form} from 'react-bootstrap';
 import AddTask from './AddTask';
@@ -13,18 +13,9 @@ const TasksList = (props) => {
     const checkAll = useRef(null);
     const [tasksFiltered, setTasksFiltered] = useState(props.tasks);
 
-    const convertTime = (time) => {
-        if( time === 0 || time < 60) {
-            return {seconds: 0, minutes:time, hours: 0};
-        }
-        else {
-            const minutes =  time - 60 ;
-            if (minutes === 60) {
-                return {seconds: 0, minutes:0, hours: 2};
-            }
-            return {seconds: 0, minutes: minutes, hours: 1};
-        }
-    }
+    useEffect(() => {
+        setTasksFiltered(props.tasks);
+    }, [props.tasks]);
 
     const handleFilter =  (ref) => {
         const tasksList = [...props.tasks];
@@ -58,12 +49,12 @@ const TasksList = (props) => {
 
             <div className="tasks-list__block">
                 <div className="tasks-list__filter">
-                    {/* <Form> */}
+                    <Form>
                         <Form.Check  onClick={() => {handleFilter(checkAll)}}  ref={checkAll} inline data-time={0} label="All Tasks"  type={'radio'} name='time' />
                         <Form.Check onClick={() => {handleFilter(checkShort)}} ref={checkShort} inline data-time={30} label="Short Tasks"  type={'radio'} name='time' />
                         <Form.Check onClick={() => {handleFilter(checkMedium)}}  ref={checkMedium} inline data-time={60} label="Medium Tasks" type={'radio'} name='time' />
                         <Form.Check  onClick={() => {handleFilter(checkLong)}}  ref={checkLong} inline data-time={61} label="Long Tasks"  type={'radio'} name='time' />
-                    {/* </Form> */}
+                    </Form>
                 </div>
                 <Accordion className="tasks-list__block">
                 {tasks.map((task, index) => (
@@ -84,12 +75,19 @@ const TasksList = (props) => {
             </div>
             )
         } 
-        else {
+        else if (props.tasks.length){
             return (
             <div> 
-                <h4>You dont have any tasks. Add one in the form below </h4>
-                <AddTask tasks={props.tasks} setTasks={props.setTasks}></AddTask>
+                <p className="message-alert">There is not tasks in the range selected </p>
+                {buildTasksList(props.tasks)}
             </div>)
+        }
+        else {
+            return (
+                <div> 
+                    <h4>You dont have any tasks. Add one in the form below </h4>
+                    <AddTask tasks={props.tasks} setTasks={props.setTasks}></AddTask>
+                </div>)
         }
     }
 
