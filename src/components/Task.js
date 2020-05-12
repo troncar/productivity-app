@@ -21,7 +21,7 @@ const Task =  (props) => {
                     Edit
                 </Accordion.Toggle>
                 <Button variant="danger" onClick={() => {props.removeTasks(props.id , props.tasks)}}>Delete</Button>{' '}
-                <Button variant="info">Complete!</Button>{' '}
+                <Button variant="info" onClick={() => {props.completeTasks(props.id, props.tasks)}}>Complete!</Button>{' '}
             </Card.Header>
             <Accordion.Collapse eventKey={`${props.eventKey}`}>
                 <Card.Body>

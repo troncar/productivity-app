@@ -65,6 +65,7 @@ const TasksList = (props) => {
                      setTasks={props.setTasks}
                      updateTasks={props.updateTasks}
                      removeTasks={props.removeTasks}
+                     completeTasks={props.completeTasks}
                      nameTask={task.name} 
                      timeTask={task.time}
                      eventKey={index}

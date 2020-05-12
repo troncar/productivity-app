@@ -11,6 +11,7 @@ import '../styles/Dashboard.scss';
 const Dashboard = () => {
     const initialStateStaks = [];
     const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) || initialStateStaks);
+    const [tasksComplete, setTasksComplete] = useState(JSON.parse(localStorage.getItem('tasksComplete')) || initialStateStaks);
     const [formVisible, setFormVisible] = useState(false);
     const [graphVisble, setGraphVisible] = useState(false);
     const [start, setStart] = useState(false);
@@ -21,6 +22,12 @@ const Dashboard = () => {
     useEffect(() => {
         localStorage.setItem('tasks',JSON.stringify(tasks));
     }, [tasks]);
+
+
+    useEffect(() => {
+        localStorage.setItem('tasksComplete',JSON.stringify(tasksComplete));
+        console.log(tasksComplete);
+    }, [tasksComplete]);
 
     useEffect(() => { 
         setCounter(counter);
@@ -43,6 +50,18 @@ const Dashboard = () => {
     const removeTasks =  (id, tasks) => {
         const tasksValid =  tasks.filter( task => task._id !== id);
         setTasks(tasksValid);
+    }
+
+    const completeTasks = (id, tasks) => {
+        const taskToComplete = tasks.filter( task => task._id === id);
+        if(taskToComplete){
+            const taskCompleted = taskToComplete[0];
+            setTasksComplete((prev) => (
+                    [...prev, {...taskCompleted}]
+                )
+            );
+            removeTasks(id, tasks);
+        }  
     }
 
     const updateTasks = (id, tasks, updateTask) => {
@@ -98,7 +117,13 @@ const Dashboard = () => {
                 ):(
                     <div className="dashboard">
                         <Timer counter={counter} setCounter={setCounter} start={start}/>
-                        <TasksList tasks={tasks} setTasks={setTasks} initTimer={initTimer} updateTasks={updateTasks} removeTasks={removeTasks}></TasksList>
+                        <TasksList tasks={tasks} 
+                            setTasks={setTasks} 
+                            initTimer={initTimer} 
+                            updateTasks={updateTasks} 
+                            removeTasks={removeTasks}
+                            completeTasks={completeTasks}
+                            ></TasksList>
                     </div>
                 )}
             </div>
