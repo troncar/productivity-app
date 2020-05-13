@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [tasksComplete, setTasksComplete] = useState(JSON.parse(localStorage.getItem('tasksComplete')) || initialStateStaks);
     const [formVisible, setFormVisible] = useState(false);
     const [graphVisble, setGraphVisible] = useState(false);
+    const [dashVisible, setDashVisible] = useState(true);
     const [start, setStart] = useState(false);
     const [timeCounter, setTimeCounter] = useState({});
     const [currentTask, setCurrentTask] = useState('');
@@ -40,11 +41,17 @@ const Dashboard = () => {
     },[counter]);
 
     const showForm = () => {
-        setFormVisible(!formVisible);
+        setFormVisible(true);
+        setDashVisible(false);
     }
 
     const showGraph = () => {
         setFormVisible(!graphVisble);
+    }
+
+    const showDashboard = () => {
+        setFormVisible(false);
+        setDashVisible(true);
     }
 
     const removeTasks =  (id, tasks) => {
@@ -107,12 +114,13 @@ const Dashboard = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link  onClick={showForm}>Add new tasks</Nav.Link>
-                        <Nav.Link  onClick={showGraph}>Go to the list</Nav.Link>
+                        <Nav.Link  onClick={showDashboard}>Go to the list</Nav.Link>
+                        <Nav.Link  onClick={showDashboard}>Completed Tasks</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
             <div className="container">
-                {formVisible ? (
+                {formVisible && !dashVisible ? (
                    <AddTask tasks={tasks} setTasks={setTasks}/>
                 ):(
                     <div className="dashboard">
